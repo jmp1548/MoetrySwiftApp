@@ -20,7 +20,12 @@ class ViewController: UIViewController {
         srandom(UInt32(time(nil)))
         placeWords()
     }
-
+    
+    func updateScreen(){
+        //screenSize = UIScreen.mainScreen().bounds.width
+        println(screenSize!)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
