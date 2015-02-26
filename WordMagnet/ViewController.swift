@@ -33,8 +33,19 @@ class ViewController: UIViewController {
     }
     
     func updateScreen(){
-        //screenSize = UIScreen.mainScreen().bounds.width
-        println(screenSize!)
+        screenSize = UIScreen.mainScreen().bounds.width
+        xOffSet = 0
+        yOffSet = 0
+        
+        for view in self.view.subviews
+        {
+            if(view.isKindOfClass(UILabel))
+            {
+                view.removeFromSuperview()
+            }
+        }
+        placeWords()
+        //println(screenSize!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,7 +67,9 @@ class ViewController: UIViewController {
             
             l.frame = CGRectMake(position.x + xOffSet, position.y + yOffSet, l.frame.width, l.frame.height)
             
-            if position.x + xOffSet > screenSize! - screenSize!/10{
+            //giving the right side of the sreen a 10% padding and checking to see if the words go past this
+            if (position.x + xOffSet + l.frame.width > screenSize! - screenSize!/10)
+            {
                 yOffSet += l.frame.size.height + 50
                 position.x = 40
                 xOffSet = 0
