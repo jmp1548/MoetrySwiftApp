@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F9EF63E1AA55B270050689D /* WordsModelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EF63D1AA55B270050689D /* WordsModelClass.swift */; };
+		3F9EF6421AA5669C0050689D /* WordsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9EF6411AA5669C0050689D /* WordsTableVC.swift */; };
 		3FB66F771A939BC100797E2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB66F761A939BC100797E2B /* AppDelegate.swift */; };
 		3FB66F791A939BC100797E2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB66F781A939BC100797E2B /* ViewController.swift */; };
 		3FB66F7C1A939BC100797E2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FB66F7A1A939BC100797E2B /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F9EF63D1AA55B270050689D /* WordsModelClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsModelClass.swift; sourceTree = "<group>"; };
+		3F9EF6411AA5669C0050689D /* WordsTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordsTableVC.swift; path = ../WordsTableVC.swift; sourceTree = "<group>"; };
 		3FB66F711A939BC100797E2B /* WordMagnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMagnet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB66F751A939BC100797E2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FB66F761A939BC100797E2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,8 +81,10 @@
 		3FB66F731A939BC100797E2B /* WordMagnet */ = {
 			isa = PBXGroup;
 			children = (
+				3F9EF6411AA5669C0050689D /* WordsTableVC.swift */,
 				3FB66F761A939BC100797E2B /* AppDelegate.swift */,
 				3FB66F781A939BC100797E2B /* ViewController.swift */,
+				3F9EF63D1AA55B270050689D /* WordsModelClass.swift */,
 				3FB66F7A1A939BC100797E2B /* Main.storyboard */,
 				3FB66F7D1A939BC100797E2B /* Images.xcassets */,
 				3FB66F7F1A939BC100797E2B /* LaunchScreen.xib */,
@@ -212,6 +218,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9EF63E1AA55B270050689D /* WordsModelClass.swift in Sources */,
+				3F9EF6421AA5669C0050689D /* WordsTableVC.swift in Sources */,
 				3FB66F791A939BC100797E2B /* ViewController.swift in Sources */,
 				3FB66F771A939BC100797E2B /* AppDelegate.swift in Sources */,
 			);
@@ -407,6 +415,7 @@
 				3FB66F921A939BC200797E2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3FB66F931A939BC200797E2B /* Build configuration list for PBXNativeTarget "WordMagnetTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +424,7 @@
 				3FB66F951A939BC200797E2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
