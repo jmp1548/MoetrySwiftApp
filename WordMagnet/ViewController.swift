@@ -8,6 +8,8 @@
 
 import UIKit
 
+let myWordListChange = "wordListChange"
+
 class ViewController: UIViewController {
     
     var model:WordsModelClass = WordsModelClass()
@@ -22,8 +24,9 @@ class ViewController: UIViewController {
         listChoosen = "Tech"
         placeWords()
         
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateScreen", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange", name: myWordListChange, object: nil)
     }
     
     func updateScreen()
@@ -59,10 +62,10 @@ class ViewController: UIViewController {
     {
         if(listChoosen == "Tech")
         {
-            for word in model.tech
+            for word in arrayList.arrayForCategory("tech")
             {
                 var l = UILabel()
-                l = model.alignWords(l,word: word)
+                l = model.alignWords(l, word: word)
                 
                 var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
                 l.addGestureRecognizer(panGesture)
@@ -72,10 +75,10 @@ class ViewController: UIViewController {
         }
         else if(listChoosen == "Pirate")
         {
-            for word in model.pirate
+            for word in arrayList.arrayForCategory("pirate")
             {
                 var l = UILabel()
-                l = model.alignWords(l,word: word)
+                l = model.alignWords(l, word: word)
                 
                 var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
                 l.addGestureRecognizer(panGesture)
@@ -85,10 +88,10 @@ class ViewController: UIViewController {
         }
         else
         {
-            for word in model.space
+            for word in arrayList.arrayForCategory("space")
             {
                 var l = UILabel()
-                l = model.alignWords(l,word: word)
+                l = model.alignWords(l, word: word)
                 
                 var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
                 l.addGestureRecognizer(panGesture)

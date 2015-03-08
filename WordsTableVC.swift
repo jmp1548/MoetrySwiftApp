@@ -11,15 +11,16 @@ import UIKit
 
 class WordsTableVC: UITableViewController
 {
-    var wordPackages = Array<Array<String>>()
-    var model:WordsModelClass = WordsModelClass()
+    var wordPackages = [[String]]()
+    //var model:WordsModelClass = WordsModelClass()
+    
     var list:String?
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        wordPackages.append(model.tech)
-        wordPackages.append(model.pirate)
-        wordPackages.append(model.space)
+        wordPackages.append(arrayList.arrayForCategory("tech"))
+        wordPackages.append(arrayList.arrayForCategory("pirate"))
+        wordPackages.append(arrayList.arrayForCategory("space"))
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,7 +47,7 @@ class WordsTableVC: UITableViewController
         //cell.textLabel.text = colors[indexPath.row]
         let t = wordPackages[indexPath.row]
         let name = wordPackages[indexPath.row][0]
-        cell.textLabel.text = name
+        cell.textLabel?.text = name
         
         return cell
     }
@@ -55,6 +56,7 @@ class WordsTableVC: UITableViewController
     {
         list = wordPackages[indexPath.row][0]
         //dismissViewControllerAnimated(true, completion: nil)
+        
 
     }
     

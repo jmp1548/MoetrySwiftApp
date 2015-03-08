@@ -11,10 +11,12 @@ import Foundation
 
 class WordsModelClass
 {
+    private var myData = [String:[String]]()
+    
     //Arrays of words to choose from
-    var tech: [String] = []
-    var pirate: [String] = []
-    var space: [String] = []
+    //var tech: [String] = []
+    //var pirate: [String] = []
+    //var space: [String] = []
     
     //Screen size/offset related variable
     var xOffSet = CGFloat()
@@ -28,13 +30,13 @@ class WordsModelClass
     {
         listChoosen = "Tech"
         
-        tech = ["Tech","could","cloud","bot","bit","ask","a","geek","flame","file","ed","ed","create","like","lap","is","ing","I","her"
+        myData["tech"] = ["Tech","could","cloud","bot","bit","ask","a","geek","flame","file","ed","ed","create","like","lap","is","ing","I","her"
             ,"drive","get","soft","screen","protect","online","meme","to","they","that","space","source","y","write"
             ,"while"]
         
-        pirate = ["Pirate","ship", "blunderer", "hook", "treasure", "captain", "sea", "parrot", "pegleg", "hook", "chest", "island", "cannon", "flag", "map", "compass", "scurvy", "plunder", "aargh", "earring", "booty", "gold", "mate", "buccaneer", "blackbeard", "beard", "steal", "rum", "skull", "crossbones"]
+        myData["pirate"] = ["Pirate","ship", "blunderer", "hook", "treasure", "captain", "sea", "parrot", "pegleg", "hook", "chest", "island", "cannon", "flag", "map", "compass", "scurvy", "plunder", "aargh", "earring", "booty", "gold", "mate", "buccaneer", "blackbeard", "beard", "steal", "rum", "skull", "crossbones"]
         
-        space = ["Space", "planets", "stars", "galaxy", "moon", "black", "hole", "warp", "orbit", "spaceship", "rocket", "deep", "flying", "asteroid", "celestial", "cosmic", "atmosphere", "gravity", "meteorite", "solar", "sun", "nebula", "satellite", "comet", "astronaut", "explore", "votage"]
+        myData["space"] = ["Space", "planets", "stars", "galaxy", "moon", "black", "hole", "warp", "orbit", "spaceship", "rocket", "deep", "flying", "asteroid", "celestial", "cosmic", "atmosphere", "gravity", "meteorite", "solar", "sun", "nebula", "satellite", "comet", "astronaut", "explore", "votage"]
     }
 
     func alignWords(l: UILabel, word: String )->UILabel
@@ -65,4 +67,10 @@ class WordsModelClass
         return l
     }
     
+    func arrayForCategory(category: String) -> [String]{
+        return myData[category]! ?? [String]()
+    }
+    
    }
+
+var arrayList = WordsModelClass()
