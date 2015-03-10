@@ -47,6 +47,12 @@ class WordsTableVC: UITableViewController
     override func tableView(tableView: UITableView,didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         list = wordArray[indexPath.row].value
+        
+        let data = ["listValue": list!]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(myWordListChange, object: self, userInfo: data)
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func cancelTapped(sender: AnyObject)

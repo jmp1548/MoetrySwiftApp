@@ -26,8 +26,18 @@ class ViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateScreen", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange", name: myWordListChange, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange:", name: myWordListChange, object: nil)
     }
+    
+    func wordChange(n: NSNotification){
+        let d = n.userInfo!
+        listChoosen = d["listValue"] as? String
+        
+        println(listChoosen)
+        
+        updateScreen()
+    }
+
     
     func updateScreen()
     {
@@ -50,17 +60,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func unwindToMain(segue:UIStoryboardSegue)
-    {
-        var vc = segue.sourceViewController as WordsTableVC
-        listChoosen = vc.list
-        self.updateScreen()
-    }
     
     //places words based on what word list is choosen from the start
     func placeWords()
     {
-        if(listChoosen == "Tech")
+        if(listChoosen == "tech")
         {
             for word in arrayList.arrayForCategory("tech")
             {
@@ -73,7 +77,7 @@ class ViewController: UIViewController {
                 
             }
         }
-        else if(listChoosen == "Pirate")
+        else if(listChoosen == "pirate")
         {
             for word in arrayList.arrayForCategory("pirate")
             {
