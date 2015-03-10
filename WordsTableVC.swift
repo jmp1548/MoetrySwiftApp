@@ -11,16 +11,12 @@ import UIKit
 
 class WordsTableVC: UITableViewController
 {
-    var wordPackages = [[String]]()
-    //var model:WordsModelClass = WordsModelClass()
+    var wordArray = [(name: "Tech", value: "tech"), (name: "Pirate", value: "pirate"), (name: "Space", value: "space")]
     
     var list:String?
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        wordPackages.append(arrayList.arrayForCategory("tech"))
-        wordPackages.append(arrayList.arrayForCategory("pirate"))
-        wordPackages.append(arrayList.arrayForCategory("space"))
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,28 +32,21 @@ class WordsTableVC: UITableViewController
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        
-        return wordPackages.count
+        return wordArray.count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
         
-        //cell.textLabel.text = colors[indexPath.row]
-        let t = wordPackages[indexPath.row]
-        let name = wordPackages[indexPath.row][0]
-        cell.textLabel?.text = name
+        cell.textLabel?.text = wordArray[indexPath.row].name
         
         return cell
     }
     
     override func tableView(tableView: UITableView,didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        list = wordPackages[indexPath.row][0]
-        //dismissViewControllerAnimated(true, completion: nil)
-        
-
+        list = wordArray[indexPath.row].value
     }
     
     @IBAction func cancelTapped(sender: AnyObject)

@@ -13,11 +13,6 @@ class WordsModelClass
 {
     private var myData = [String:[String]]()
     
-    //Arrays of words to choose from
-    //var tech: [String] = []
-    //var pirate: [String] = []
-    //var space: [String] = []
-    
     //Screen size/offset related variable
     var xOffSet = CGFloat()
     var yOffSet = CGFloat()
