@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,9 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FridgeBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="QMZ-xH-a3j">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="veM-f0-h71">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Uqc-FP-7I1"/>
+                                    <barButtonItem systemItem="action" id="viM-Tg-p1W">
+                                        <connections>
+                                            <segue destination="6Mi-Rh-wKa" kind="popoverPresentation" popoverAnchorBarButtonItem="viM-Tg-p1W" id="aPp-0w-RQi">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Lgz-4e-3zY"/>
                                     <barButtonItem title="Choose Words" id="Oxe-iF-gz5">
                                         <connections>
@@ -33,13 +44,47 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="veM-f0-h71" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aNA-Vg-1GV"/>
+                            <constraint firstAttribute="trailing" secondItem="QMZ-xH-a3j" secondAttribute="trailing" id="anf-Bs-5Dj"/>
                             <constraint firstAttribute="bottom" secondItem="veM-f0-h71" secondAttribute="bottom" id="epL-f3-R3B"/>
                             <constraint firstAttribute="trailing" secondItem="veM-f0-h71" secondAttribute="trailing" id="jsF-X3-phu"/>
+                            <constraint firstItem="QMZ-xH-a3j" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="raG-2R-wnz"/>
+                            <constraint firstAttribute="bottom" secondItem="QMZ-xH-a3j" secondAttribute="bottom" constant="44" id="x7G-F6-LC2"/>
+                            <constraint firstItem="QMZ-xH-a3j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yD1-VD-oiv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="myImageView" destination="QMZ-xH-a3j" id="sY3-Kk-Tk1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Share Options-->
+        <scene sceneID="f8U-iQ-xib">
+            <objects>
+                <tableViewController id="CtT-q2-4DH" customClass="ShareOptionsTableVC" customModule="WordMagnet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YHg-2Q-HUj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="mFM-QG-9wY">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mFM-QG-9wY" id="O35-Rl-hXi">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="CtT-q2-4DH" id="1xF-eb-hXU"/>
+                            <outlet property="delegate" destination="CtT-q2-4DH" id="Erz-Qr-jqf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Share Options" id="S0N-VG-G3K"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EHU-9O-dXZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1671" y="865"/>
         </scene>
         <!--Choose A Category-->
         <scene sceneID="foi-7Y-5Qg">
@@ -86,5 +131,26 @@
             </objects>
             <point key="canvasLocation" x="859" y="137"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IWH-zp-aI0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Mi-Rh-wKa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="R9Q-yO-G4M">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CtT-q2-4DH" kind="relationship" relationship="rootViewController" id="5pE-oD-X9X"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="js2-Uu-vyI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="864" y="860"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="FridgeBackground.png" width="1362" height="2636"/>
+    </resources>
 </document>

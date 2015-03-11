@@ -29,9 +29,11 @@ class WordsModelClass
             ,"drive","get","soft","screen","protect","online","meme","to","they","that","space","source","y","write"
             ,"while"]
         
-        myData["pirate"] = ["Pirate","ship", "blunderer", "hook", "treasure", "captain", "sea", "parrot", "pegleg", "hook", "chest", "island", "cannon", "flag", "map", "compass", "scurvy", "plunder", "aargh", "earring", "booty", "gold", "mate", "buccaneer", "blackbeard", "beard", "steal", "rum", "skull", "crossbones"]
+        myData["pirate"] = ["Pirate","ship", "blunderering", "hook", "treasure", "captain", "sea", "stealing", "parrot", "pegleg", "hook", "chest", "island", "cannon", "flag", "map", "is", "compass", "angry", "scurvy", "plunder", "aargh", "earring", "are", "booty", "gold", "mate", "buccaneer", "blackbeard", "dead", "beard", "steal", "rum", "skull", "s", "crossbones"]
         
-        myData["space"] = ["Space", "planets", "stars", "galaxy", "moon", "black", "hole", "warp", "orbit", "spaceship", "rocket", "deep", "flying", "asteroid", "celestial", "cosmic", "atmosphere", "gravity", "meteorite", "solar", "sun", "nebula", "satellite", "comet", "astronaut", "explore", "votage"]
+        myData["space"] = ["Space", "planets", "are", "stars", "galaxy", "moon", "black", "hole", "warp", "orbit", "spaceship", "rocket", "deep", "flying", "asteroid", "falling", "celestial", "cosmic", "atmosphere", "gravity", "meteorite", "charred", "lost", "is", "solar", "sun", "nebula", "satellite", "comet", "s", "astronaut", "explore", "votage"]
+        
+        myData["food"] = ["Gracies", "pizza", "eating", "delicious", "are", "garbage", "plate", "yummy", "chicken", "wings", "subs", "sauce", "buffalo", "drink", "soda", "water", "milk", "hot", "cold", "salad", "fries", "spoiled", "quesadilla", "sandwich", " RITZ", "Commons", "tacos", "rice", "vegtables", "is"]
     }
 
     func alignWords(l: UILabel, word: String )->UILabel
@@ -40,9 +42,11 @@ class WordsModelClass
         l.backgroundColor = UIColor.whiteColor()
         l.text = "\(word)  "
         l.textAlignment = .Center
-        l.sizeToFit()
         var test = position.x
-            
+        
+        l.font = l.font.fontWithSize(30)
+        l.sizeToFit()
+        
         l.frame = CGRectMake(position.x + xOffSet, position.y + yOffSet, l.frame.width, l.frame.height)
             
         //giving the right side of the sreen a 10% padding and checking to see if the words go past this

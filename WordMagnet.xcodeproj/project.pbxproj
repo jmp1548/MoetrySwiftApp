@@ -15,6 +15,9 @@
 		3FB66F7E1A939BC100797E2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB66F7D1A939BC100797E2B /* Images.xcassets */; };
 		3FB66F811A939BC100797E2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB66F7F1A939BC100797E2B /* LaunchScreen.xib */; };
 		3FB66F8D1A939BC200797E2B /* WordMagnetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB66F8C1A939BC200797E2B /* WordMagnetTests.swift */; };
+		3FE6994E1AAFB9BD00A5480F /* ShareOptionsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6994D1AAFB9BD00A5480F /* ShareOptionsTableVC.swift */; };
+		3FE699501AAFC17B00A5480F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE6994F1AAFC17B00A5480F /* Social.framework */; };
+		3FE699551AAFCA3600A5480F /* FridgeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE699541AAFCA3600A5480F /* FridgeBackground.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		3FB66F861A939BC200797E2B /* WordMagnetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordMagnetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB66F8B1A939BC200797E2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FB66F8C1A939BC200797E2B /* WordMagnetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordMagnetTests.swift; sourceTree = "<group>"; };
+		3FE6994D1AAFB9BD00A5480F /* ShareOptionsTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareOptionsTableVC.swift; sourceTree = "<group>"; };
+		3FE6994F1AAFC17B00A5480F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		3FE699541AAFCA3600A5480F /* FridgeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FridgeBackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FE699501AAFC17B00A5480F /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +70,7 @@
 		3FB66F681A939BC100797E2B = {
 			isa = PBXGroup;
 			children = (
+				3FE6994F1AAFC17B00A5480F /* Social.framework */,
 				3FB66F731A939BC100797E2B /* WordMagnet */,
 				3FB66F891A939BC200797E2B /* WordMagnetTests */,
 				3FB66F721A939BC100797E2B /* Products */,
@@ -81,11 +89,13 @@
 		3FB66F731A939BC100797E2B /* WordMagnet */ = {
 			isa = PBXGroup;
 			children = (
+				3FE699511AAFC8D400A5480F /* Images */,
 				3F9EF6411AA5669C0050689D /* WordsTableVC.swift */,
 				3FB66F761A939BC100797E2B /* AppDelegate.swift */,
 				3FB66F781A939BC100797E2B /* ViewController.swift */,
 				3F9EF63D1AA55B270050689D /* WordsModelClass.swift */,
 				3FB66F7A1A939BC100797E2B /* Main.storyboard */,
+				3FE6994D1AAFB9BD00A5480F /* ShareOptionsTableVC.swift */,
 				3FB66F7D1A939BC100797E2B /* Images.xcassets */,
 				3FB66F7F1A939BC100797E2B /* LaunchScreen.xib */,
 				3FB66F741A939BC100797E2B /* Supporting Files */,
@@ -116,6 +126,15 @@
 				3FB66F8B1A939BC200797E2B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3FE699511AAFC8D400A5480F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3FE699541AAFCA3600A5480F /* FridgeBackground.png */,
+			);
+			name = Images;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +217,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FE699551AAFCA3600A5480F /* FridgeBackground.png in Resources */,
 				3FB66F7C1A939BC100797E2B /* Main.storyboard in Resources */,
 				3FB66F811A939BC100797E2B /* LaunchScreen.xib in Resources */,
 				3FB66F7E1A939BC100797E2B /* Images.xcassets in Resources */,
@@ -219,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F9EF63E1AA55B270050689D /* WordsModelClass.swift in Sources */,
+				3FE6994E1AAFB9BD00A5480F /* ShareOptionsTableVC.swift in Sources */,
 				3F9EF6421AA5669C0050689D /* WordsTableVC.swift in Sources */,
 				3FB66F791A939BC100797E2B /* ViewController.swift in Sources */,
 				3FB66F771A939BC100797E2B /* AppDelegate.swift in Sources */,

@@ -1,38 +1,41 @@
 //
-//  WordsTableVC.swift
+//  ShareOptionsTableVC.swift
 //  WordMagnet
 //
-//  Created by Student on 3/2/15.
+//  Created by Student on 3/10/15.
 //  Copyright (c) 2015 Student. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class WordsTableVC: UITableViewController
+
+class ShareOptionsTableVC: UITableViewController
 {
-    var wordArray = [(name: "Tech", value: "tech"), (name: "Pirate", value: "pirate"), (name: "Space", value: "space"), (name: "Food", value: "food")]
-    var list:String?
+    var optionsArray = [(name: "ShareFaceBook", value: "Share on FaceBook"), (name: "ShareTwitter", value: "Share on Twitter"), (name: "UploadPhoto", value: "Choose your own background")]
+    var optionsList:String?
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return wordArray.count
+        return optionsArray.count
     }
     
     
@@ -40,21 +43,21 @@ class WordsTableVC: UITableViewController
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel.text = wordArray[indexPath.row].name
+        cell.textLabel.text = optionsArray[indexPath.row].value
         
         return cell
     }
     
     override func tableView(tableView: UITableView,didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        list = wordArray[indexPath.row].value
+        optionsList = optionsArray[indexPath.row].name
         
-        let data = ["listValue": list!]
+        let d = ["Value": optionsList!]
         
-        NSNotificationCenter.defaultCenter().postNotificationName(myWordListChange, object: self, userInfo: data)
-        
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion:
+        { () -> Void in
+                NSNotificationCenter.defaultCenter().postNotificationName(mySharingOptions, object: self, userInfo: d)
+        })
     }
-    
     
 }
