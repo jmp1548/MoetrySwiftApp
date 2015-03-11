@@ -32,6 +32,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         listChoosen = "tech"
         placeWords()
         
+        var data = UIImage(contentsOfFile: FilePathInDocumentsDirectory("mainview.png"))
+        myImageView.image = data
+        
+        println(data)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateScreen", name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange:", name: myWordListChange, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "manageSharingOptions:", name: mySharingOptions, object: nil)
@@ -64,22 +69,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         else if(shareOptionChoosen == "ShareFaceBook")
         {
-            UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
-            view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
             var social = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            social.addImage(image)
+            social.addImage(view.takeSnapshot())
             self.presentViewController(social, animated: true, completion: nil)
         }
         else if(shareOptionChoosen == "ShareTwitter")
         {
-            UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
-            view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
             var social = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-            social.addImage(image)
+            social.addImage(view.takeSnapshot())
             self.presentViewController(social, animated: true, completion: nil)
         }
         
@@ -177,6 +174,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     {
         myImageView.image = image
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func SaveImageAsPNG(image: UIImage, path: String) -> Bool{
+        let pngData = UIImagePNGRepresentation(image)
+        let result = pngData.writeToFile(path, atomically: true)
+        return result
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        SaveImageAsPNG(myImageView.image!, path: FilePathInDocumentsDirectory("mainview.png"))
+        println(DocumentsDirectory())
     }
 
 }
