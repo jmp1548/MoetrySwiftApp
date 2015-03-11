@@ -13,6 +13,8 @@ class WordsModelClass
 {
     private var myData = [String:[String]]()
     
+    let IS_IPAD = UIDevice.currentDevice().userInterfaceIdiom == .Pad
+
     //Screen size/offset related variable
     var xOffSet = CGFloat()
     var yOffSet = CGFloat()
@@ -31,7 +33,7 @@ class WordsModelClass
         
         myData["pirate"] = ["Pirate","ship", "blunderering", "hook", "treasure", "captain", "sea", "stealing", "parrot", "pegleg", "hook", "chest", "island", "cannon", "flag", "map", "is", "compass", "angry", "scurvy", "plunder", "aargh", "earring", "are", "booty", "gold", "mate", "buccaneer", "blackbeard", "dead", "beard", "steal", "rum", "skull", "s", "crossbones"]
         
-        myData["space"] = ["Space", "planets", "are", "stars", "galaxy", "moon", "black", "hole", "warp", "orbit", "spaceship", "rocket", "deep", "flying", "asteroid", "falling", "celestial", "cosmic", "atmosphere", "gravity", "meteorite", "charred", "lost", "is", "solar", "sun", "nebula", "satellite", "comet", "s", "astronaut", "explore", "votage"]
+        myData["space"] = ["Space", "planets", "are", "stars", "galaxy", "moon", "black", "hole", "warp", "orbit", "spaceship", "rocket", "deep", "flying", "asteroid", "falling", "celestial", "cosmic", "atmosphere", "gravity", "meteorite", "charred", "lost", "is", "solar", "sun", "nebula", "satellite", "comet", "s", "astronaut", "explore", "voyage"]
         
         myData["food"] = ["Gracies", "pizza", "eating", "delicious", "are", "garbage", "plate", "yummy", "chicken", "wings", "subs", "sauce", "buffalo", "drink", "soda", "water", "milk", "hot", "cold", "salad", "fries", "spoiled", "quesadilla", "sandwich", " RITZ", "Commons", "tacos", "rice", "vegtables", "is"]
     }
@@ -44,27 +46,49 @@ class WordsModelClass
         l.textAlignment = .Center
         var test = position.x
         
-        l.font = l.font.fontWithSize(30)
-        l.sizeToFit()
-        
-        l.frame = CGRectMake(position.x + xOffSet, position.y + yOffSet, l.frame.width, l.frame.height)
-            
-        //giving the right side of the sreen a 10% padding and checking to see if the words go past this
-        if (position.x + xOffSet + l.frame.width > screenSize! - screenSize!/10)
+        if(IS_IPAD)
         {
-            yOffSet += l.frame.size.height + 50
-            position.x = 40
-            xOffSet = 0
-                
+            l.font = l.font.fontWithSize(30)
+            l.sizeToFit()
+        
             l.frame = CGRectMake(position.x + xOffSet, position.y + yOffSet, l.frame.width, l.frame.height)
-                
-        }
             
+            //giving the right side of the sreen a 10% padding and checking to see if the words go past this
+            if (position.x + xOffSet + l.frame.width > screenSize! - screenSize!/10)
+            {
+                yOffSet += l.frame.size.height + 50
+                position.x = 40
+                xOffSet = 0
+                
+                l.frame = CGRectMake(position.x + xOffSet, position.y + yOffSet, l.frame.width, l.frame.height)
+                
+            }
+        }
+        else
+        {
+            l.font = l.font.fontWithSize(16)
+            l.sizeToFit()
+            
+            l.frame = CGRectMake(position.x + xOffSet, position.y + yOffSet, l.frame.width, l.frame.height)
+            
+            //giving the right side of the sreen a 10% padding and checking to see if the words go past this
+            if (position.x + xOffSet + l.frame.width > screenSize! - screenSize!/10)
+            {
+                yOffSet += l.frame.size.height + 15
+                position.x = 40
+                xOffSet = 0
+                
+                l.frame = CGRectMake(position.x + xOffSet, position.y + yOffSet, l.frame.width, l.frame.height)
+                
+            }
+        }
+        
         xOffSet += l.frame.size.width + 10
         l.userInteractionEnabled = true
         
         return l
     }
+    
     
     func arrayForCategory(category: String) -> [String]{
         return myData[category]! ?? [String]()

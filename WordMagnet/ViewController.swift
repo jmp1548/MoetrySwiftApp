@@ -18,7 +18,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var listChoosen:String?
     var shareOptionChoosen:String?
     
-    //Image Picker related variables
+    @IBOutlet weak var mySlider: UISlider!
     @IBOutlet weak var myImageView: UIImageView!
     var imagePicker = UIImagePickerController()
     
