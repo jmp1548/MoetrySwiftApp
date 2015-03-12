@@ -21,7 +21,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var mySlider: UISlider!
     @IBOutlet weak var myImageView: UIImageView!
     var imagePicker = UIImagePickerController()
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -30,16 +30,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         model.screenSize = UIScreen.mainScreen().bounds.width
         view.backgroundColor = UIColor.orangeColor()
         listChoosen = "tech"
-        placeWords()
+    
         
-        var data = UIImage(contentsOfFile: FilePathInDocumentsDirectory("mainview.png"))
-        myImageView.image = data
+        if let data = UIImage(contentsOfFile: FilePathInDocumentsDirectory("mainview.png")){
+                myImageView.image = data
+            }
         
-        println(data)
+        if let labels = NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist")){
+            labelPositions = labels
+            placeWordsFromSave()
+            //println(labelPositions)
+        }
+        else
+        {
+            placeWords()
+        }
+       
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateScreen", name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange:", name: myWordListChange, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "manageSharingOptions:", name: mySharingOptions, object: nil)
+        
+        //placeWords()
     }
     
     func wordChange(n: NSNotification)
@@ -160,6 +172,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 
             }
         }
+    }
+    
+    func placeWordsFromSave()
+    {
+        for (word, pos) in labelPositions
+        {
+            var l = UILabel()
+            var position = CGPointFromString(pos as? String)
+            l.text = word as? String
+            l.center = position
+            view.addSubview(l)
+        }
         
     }
     
@@ -176,6 +200,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
     func SaveImageAsPNG(image: UIImage, path: String) -> Bool{
         let pngData = UIImagePNGRepresentation(image)
         let result = pngData.writeToFile(path, atomically: true)
@@ -185,6 +210,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidAppear(animated: Bool) {
         SaveImageAsPNG(myImageView.image!, path: FilePathInDocumentsDirectory("mainview.png"))
         println(DocumentsDirectory())
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        //saveLabelPositions(self)
     }
 
 }

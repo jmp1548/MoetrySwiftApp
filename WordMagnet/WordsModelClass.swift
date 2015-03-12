@@ -42,7 +42,7 @@ class WordsModelClass
     {
 
         l.backgroundColor = UIColor.whiteColor()
-        l.text = "\(word)  "
+        l.text = "\(word)   "
         l.textAlignment = .Center
         var test = position.x
         
@@ -97,3 +97,4 @@ class WordsModelClass
    }
 
 var arrayList = WordsModelClass()
+var labelPositions = NSMutableDictionary()
