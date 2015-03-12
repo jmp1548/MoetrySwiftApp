@@ -27,13 +27,13 @@ func saveLabelPositions(vc:UIViewController)
             l = view as UILabel
             var word = l.text
             var pos = NSStringFromCGPoint(view.center)
-            labelPositions[word!] = [pos!]
+            labelPositions[word!] = pos
             
         }
     }
     
     labelPositions.writeToFile(FilePathInDocumentsDirectory("labelPositions.plist"), atomically: true)
-    println(NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist")))
+    //println(NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist")))
 }
 
 

@@ -1,38 +1,44 @@
 //
-//  WordsTableVC.swift
+//  FontTableVC.swift
 //  WordMagnet
 //
-//  Created by Student on 3/2/15.
+//  Created by Jason  on 3/11/15.
 //  Copyright (c) 2015 Student. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class WordsTableVC: UITableViewController
-{
-    var wordArray = [(name: "Tech", value: "tech"), (name: "Pirate", value: "pirate"), (name: "Space", value: "space"), (name: "Food", value: "food")]
-    var list:String?
+class FontTableVC: UITableViewController {
     
-    override func viewDidLoad()
-    {
+     var fontArray = [(name: "HelveticaNeue UltraLight", value: "HelveticaNeue-UltraLight"),
+    (name: "Chalkduster", value: "Chalkduster"), (name: "Avenir Black", value: "Avenir-Black"), (name: "Cochin", value: "Cochin")]
+    
+    var fontChosen: String?
+
+    override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     // MARK: - Table view data source
-    
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return wordArray.count
+        return fontArray.count
     }
     
     
@@ -40,17 +46,18 @@ class WordsTableVC: UITableViewController
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = wordArray[indexPath.row].name
+        cell.textLabel?.text = fontArray[indexPath.row].name
         
         return cell
     }
     
     override func tableView(tableView: UITableView,didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        list = wordArray[indexPath.row].value
+        fontChosen = fontArray[indexPath.row].value
         
-        let data = ["listValue": list!]
-        NSNotificationCenter.defaultCenter().postNotificationName(myWordListChange, object: self, userInfo: data)
+        let data = ["font": fontChosen!]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(myFontChange, object: self, userInfo: data)
         
         dismissViewControllerAnimated(true, completion: nil)
     }

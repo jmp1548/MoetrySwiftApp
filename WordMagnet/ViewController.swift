@@ -11,6 +11,7 @@ import Social
 
 let myWordListChange = "wordListChange"
 let mySharingOptions = "sharingOptions"
+let myFontChange = "fontChange"
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -35,23 +36,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let data = UIImage(contentsOfFile: FilePathInDocumentsDirectory("mainview.png")){
                 myImageView.image = data
             }
-        
-        if let labels = NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist")){
+        if let labels = NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist"))
+        {
             labelPositions = labels
             placeWordsFromSave()
-            //println(labelPositions)
         }
         else
         {
             placeWords()
         }
-       
+
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateScreen", name: UIDeviceOrientationDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange:", name: myWordListChange, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "manageSharingOptions:", name: mySharingOptions, object: nil)
         
-        //placeWords()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "fontChange:", name: myFontChange, object: nil)
     }
     
     func wordChange(n: NSNotification)
@@ -59,7 +59,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let d = n.userInfo!
         listChoosen = d["listValue"] as? String
         
-        updateScreen()
+        placeWords()
+    }
+    
+    func fontChange(n: NSNotification)
+    {
+        let d = n.userInfo!
+        var font = d["font"] as? String
+        
+        for view in self.view.subviews
+        {
+            if(view.isKindOfClass(UILabel))
+            {
+                var l = view as UILabel
+                
+                if IS_IPAD{
+                    l.font = UIFont(name: font!, size: 30)
+                    l.sizeToFit()
+                    
+                } else {
+                    l.font = UIFont(name: font!, size: 16)
+                    l.sizeToFit()
+                }
+                
+            }
+        }
+        println(font)
     }
     
     //Will manage our sharing options(Uploading to FB, to Twitter, or uploading your own photo)
@@ -105,7 +130,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         {
             if(view.isKindOfClass(UILabel))
             {
-                view.removeFromSuperview()
+               view.removeFromSuperview()
             }
         }
         placeWords()
@@ -120,6 +145,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //places words based on what word list is choosen from the start
     func placeWords()
     {
+        model.screenSize = UIScreen.mainScreen().bounds.width
+        model.xOffSet = 0
+        model.yOffSet = 0
+        for view in self.view.subviews
+        {
+            if(view.isKindOfClass(UILabel))
+            {
+                view.removeFromSuperview()
+            }
+        }
+        
         if(listChoosen == "tech")
         {
             for word in arrayList.arrayForCategory("tech")
@@ -176,13 +212,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func placeWordsFromSave()
     {
+        
         for (word, pos) in labelPositions
         {
             var l = UILabel()
-            var position = CGPointFromString(pos as? String)
+            l.backgroundColor = UIColor.whiteColor()
             l.text = word as? String
-            l.center = position
+            l.textAlignment = .Center
+            var position = CGPointFromString(pos as String)
+            
+            
+            if(IS_IPAD)
+            {
+                l.font = l.font.fontWithSize(30)
+                l.sizeToFit()
+                
+            }
+            else
+            {
+                l.font = l.font.fontWithSize(16)
+                l.sizeToFit()
+                
+            }
+            
+            l.frame = CGRectMake(position.x - 40, position.y - 10, l.frame.width, l.frame.height)
+            l.userInteractionEnabled = true
+            
+            var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
+            l.addGestureRecognizer(panGesture)
             view.addSubview(l)
+            
         }
         
     }
@@ -209,11 +268,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     override func viewDidAppear(animated: Bool) {
         SaveImageAsPNG(myImageView.image!, path: FilePathInDocumentsDirectory("mainview.png"))
-        println(DocumentsDirectory())
+        //println(DocumentsDirectory())
     }
     
     override func viewWillDisappear(animated: Bool) {
         //saveLabelPositions(self)
+    }
+    override func viewWillAppear(animated: Bool)
+    {
+        /*if let labels = NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist"))
+        {
+            labelPositions = labels
+            placeWordsFromSave()
+        }
+        else
+        {
+            placeWords()
+        }*/
     }
 
 }

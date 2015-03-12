@@ -9,11 +9,11 @@
 import UIKit
 import Foundation
 
+let IS_IPAD = UIDevice.currentDevice().userInterfaceIdiom == .Pad
+
 class WordsModelClass
 {
     private var myData = [String:[String]]()
-    
-    let IS_IPAD = UIDevice.currentDevice().userInterfaceIdiom == .Pad
 
     //Screen size/offset related variable
     var xOffSet = CGFloat()
@@ -42,7 +42,7 @@ class WordsModelClass
     {
 
         l.backgroundColor = UIColor.whiteColor()
-        l.text = "\(word)   "
+        l.text = "\(word)    "
         l.textAlignment = .Center
         var test = position.x
         
