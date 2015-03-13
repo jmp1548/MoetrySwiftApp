@@ -18,11 +18,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var model:WordsModelClass = WordsModelClass()
     var listChoosen:String?
     var shareOptionChoosen:String?
-    
+    var path = FilePathInDocumentsDirectory("wordList.txt")
+    var placingSavedWords:Bool?
     @IBOutlet weak var mySlider: UISlider!
     @IBOutlet weak var myImageView: UIImageView!
     var imagePicker = UIImagePickerController()
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -30,28 +30,40 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         srandom(UInt32(time(nil)))
         model.screenSize = UIScreen.mainScreen().bounds.width
         view.backgroundColor = UIColor.orangeColor()
+        
         listChoosen = "tech"
-    
+        
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange:", name: myWordListChange, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "manageSharingOptions:", name: mySharingOptions, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "fontChange:", name: myFontChange, object: nil)
         
         if let data = UIImage(contentsOfFile: FilePathInDocumentsDirectory("mainview.png")){
                 myImageView.image = data
             }
-        if let labels = NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist"))
-        {
-            labelPositions = labels
-            placeWordsFromSave()
-        }
-        else
-        {
-            placeWords()
+        
+        if let words = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil){
+            listChoosen = words
+
         }
 
+        if let labels = NSMutableArray(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist"))
+        {
+            labelPositionsArray = labels
+            placingSavedWords = true
+            placeWords()
+        }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateScreen", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wordChange:", name: myWordListChange, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "manageSharingOptions:", name: mySharingOptions, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "fontChange:", name: myFontChange, object: nil)
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.currentDevice().orientation.isLandscape.boolValue {
+            placingSavedWords = false
+            placeWords()
+        } else {
+            placingSavedWords = false
+            placeWords()
+        }
     }
     
     func wordChange(n: NSNotification)
@@ -59,7 +71,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let d = n.userInfo!
         listChoosen = d["listValue"] as? String
         
+        placingSavedWords = false
         placeWords()
+        saveLabelPositions(self)
     }
     
     func fontChange(n: NSNotification)
@@ -84,7 +98,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 
             }
         }
-        println(font)
     }
     
     //Will manage our sharing options(Uploading to FB, to Twitter, or uploading your own photo)
@@ -117,24 +130,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.presentViewController(social, animated: true, completion: nil)
         }
         
-        
     }
-
-    func updateScreen()
-    {
-        model.screenSize = UIScreen.mainScreen().bounds.width
-        model.xOffSet = 0
-        model.yOffSet = 0
-        
-        for view in self.view.subviews
-        {
-            if(view.isKindOfClass(UILabel))
-            {
-               view.removeFromSuperview()
-            }
-        }
-        placeWords()
-    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -148,6 +145,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         model.screenSize = UIScreen.mainScreen().bounds.width
         model.xOffSet = 0
         model.yOffSet = 0
+        
         for view in self.view.subviews
         {
             if(view.isKindOfClass(UILabel))
@@ -156,95 +154,52 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
         
-        if(listChoosen == "tech")
+        if placingSavedWords == true
         {
-            for word in arrayList.arrayForCategory("tech")
+            for word in labelPositionsArray
             {
-                var l = UILabel()
-                l = model.alignWords(l, word: word)
+                var text = word["text"] as String
+                var positionString = word["position"] as String
+                var point = CGPointFromString(positionString)
                 
+                var l = UILabel()
+                l.text = text
+                l.backgroundColor = UIColor.whiteColor()
+                l.textAlignment = .Center
+                
+                if(IS_IPAD)
+                {
+                    l.font = l.font.fontWithSize(30)
+                    l.sizeToFit()
+                    
+                }
+                else
+                {
+                    l.font = l.font.fontWithSize(16)
+                    l.sizeToFit()
+                    
+                }
+                l.center = point
+                //l.frame = CGRectMake(point.x, point.y, l.frame.width, l.frame.height)
+                l.userInteractionEnabled = true
                 var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
                 l.addGestureRecognizer(panGesture)
                 view.addSubview(l)
-                
-            }
-        }
-        else if(listChoosen == "pirate")
-        {
-            for word in arrayList.arrayForCategory("pirate")
-            {
-                var l = UILabel()
-                l = model.alignWords(l, word: word)
-                
-                var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
-                l.addGestureRecognizer(panGesture)
-                view.addSubview(l)
-                
-            }
-        }
-        else if(listChoosen == "food")
-        {
-            for word in arrayList.arrayForCategory("food")
-            {
-                var l = UILabel()
-                l = model.alignWords(l, word: word)
-                
-                var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
-                l.addGestureRecognizer(panGesture)
-                view.addSubview(l)
-                
             }
         }
         else
         {
-            for word in arrayList.arrayForCategory("space")
+            for word in arrayList.arrayForCategory(listChoosen!)
             {
                 var l = UILabel()
                 l = model.alignWords(l, word: word)
-                
                 var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
                 l.addGestureRecognizer(panGesture)
                 view.addSubview(l)
-                
             }
         }
     }
     
-    func placeWordsFromSave()
-    {
-        
-        for (word, pos) in labelPositions
-        {
-            var l = UILabel()
-            l.backgroundColor = UIColor.whiteColor()
-            l.text = word as? String
-            l.textAlignment = .Center
-            var position = CGPointFromString(pos as String)
-            
-            
-            if(IS_IPAD)
-            {
-                l.font = l.font.fontWithSize(30)
-                l.sizeToFit()
-                
-            }
-            else
-            {
-                l.font = l.font.fontWithSize(16)
-                l.sizeToFit()
-                
-            }
-            
-            l.frame = CGRectMake(position.x - 40, position.y - 10, l.frame.width, l.frame.height)
-            l.userInteractionEnabled = true
-            
-            var panGesture = UIPanGestureRecognizer(target: self, action: "doPanGesture:")
-            l.addGestureRecognizer(panGesture)
-            view.addSubview(l)
-            
-        }
-        
-    }
     
     func doPanGesture(panGesture:UIPanGestureRecognizer)
     {
@@ -268,23 +223,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     override func viewDidAppear(animated: Bool) {
         SaveImageAsPNG(myImageView.image!, path: FilePathInDocumentsDirectory("mainview.png"))
-        //println(DocumentsDirectory())
+        
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        //saveLabelPositions(self)
-    }
-    override func viewWillAppear(animated: Bool)
+    override func viewWillDisappear(animated: Bool)
     {
-        /*if let labels = NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist"))
-        {
-            labelPositions = labels
-            placeWordsFromSave()
-        }
-        else
-        {
-            placeWords()
-        }*/
+        lastWordList = listChoosen!
+        lastWordList?.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        saveLabelPositions(self)
     }
 
 }

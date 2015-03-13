@@ -19,6 +19,8 @@ func FilePathInDocumentsDirectory(fileName: String) -> String{
 
 func saveLabelPositions(vc:UIViewController)
 {
+    labelPositionsArray.removeAllObjects()
+    
     for view in vc.view.subviews
     {
         if(view.isKindOfClass(UILabel))
@@ -27,13 +29,13 @@ func saveLabelPositions(vc:UIViewController)
             l = view as UILabel
             var word = l.text
             var pos = NSStringFromCGPoint(view.center)
-            labelPositions[word!] = pos
-            
+            var label = ["text":word, "position": pos]
+            labelPositionsArray.addObject(label)
         }
     }
     
-    labelPositions.writeToFile(FilePathInDocumentsDirectory("labelPositions.plist"), atomically: true)
-    //println(NSMutableDictionary(contentsOfFile: FilePathInDocumentsDirectory("labelPositions.plist")))
+    labelPositionsArray.writeToFile(FilePathInDocumentsDirectory("labelPositions.plist"), atomically: true)
+    //println(DocumentsDirectory())
 }
 
 

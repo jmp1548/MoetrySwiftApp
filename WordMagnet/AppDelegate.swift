@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var rootViewController = self.window!.rootViewController
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         var mainVC = mainStoryboard.instantiateViewControllerWithIdentifier("MainVC") as ViewController
-        saveLabelPositions(mainVC)
+        //saveLabelPositions(mainVC)
     
     }
 

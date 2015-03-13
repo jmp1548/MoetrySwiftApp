@@ -21,11 +21,9 @@ class WordsModelClass
     var position = CGPoint(x: 40, y: 40)
     var screenSize: CGFloat?
     
-    var listChoosen:String?
     
     init()
     {
-        listChoosen = "Tech"
         
         myData["tech"] = ["Tech","could","cloud","bot","bit","ask","a","geek","flame","file","ed","ed","create","like","lap","is","ing","I","her"
             ,"drive","get","soft","screen","protect","online","meme","to","they","that","space","source","y","write"
@@ -44,7 +42,6 @@ class WordsModelClass
         l.backgroundColor = UIColor.whiteColor()
         l.text = "\(word)    "
         l.textAlignment = .Center
-        var test = position.x
         
         if(IS_IPAD)
         {
@@ -97,4 +94,5 @@ class WordsModelClass
    }
 
 var arrayList = WordsModelClass()
-var labelPositions = NSMutableDictionary()
+var labelPositionsArray = NSMutableArray()
+var lastWordList:String?
