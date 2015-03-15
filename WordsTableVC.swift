@@ -40,7 +40,7 @@ class WordsTableVC: UITableViewController
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel.text = wordArray[indexPath.row].name
+        cell.textLabel?.text = wordArray[indexPath.row].name
         
         return cell
     }

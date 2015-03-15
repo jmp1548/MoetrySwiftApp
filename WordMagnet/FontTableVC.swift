@@ -46,7 +46,7 @@ class FontTableVC: UITableViewController {
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel.text = fontArray[indexPath.row].name
+        cell.textLabel?.text = fontArray[indexPath.row].name
         
         return cell
     }

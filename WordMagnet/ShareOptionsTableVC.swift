@@ -43,7 +43,7 @@ class ShareOptionsTableVC: UITableViewController
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel.text = optionsArray[indexPath.row].value
+        cell.textLabel?.text = optionsArray[indexPath.row].value
         
         return cell
     }
